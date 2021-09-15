@@ -22,3 +22,17 @@ after_success:
   - docker push dockernagbattula/multi-nginx
   - docker push dockernagbattula/multi-server
   - docker push dockernagbattula/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "Multidocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-705597486007"
+  bucket_path: "docker-multi"
+  on:
+    branches: # ← new!
+      only: # ← new!
+        - master # ← new!
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
